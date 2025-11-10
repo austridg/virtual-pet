@@ -1,4 +1,7 @@
-*.o
 *.exe
 *.dll
-build
+*.pdb
+*.o
+/build/
+CMakeFiles/
+CMakeCache.txt
