@@ -1,17 +1,20 @@
-cmake_minimum_required(VERSION 3.28)
-project(SolbytePet LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.21)
+project(virtual-pet LANGUAGES CXX)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-include(FetchContent)
-FetchContent_Declare(SFML
-    GIT_REPOSITORY https://github.com/SFML/SFML.git
-    GIT_TAG 3.0.2
-    GIT_SHALLOW ON
-    EXCLUDE_FROM_ALL
-    SYSTEM)
-FetchContent_MakeAvailable(SFML)
+add_executable(virtual-pet
+  main.cpp
+  Pet.cpp
+  Pet.h
+)
 
-add_executable(SolPet main.cpp Pet.cpp)
-target_compile_features(SolPet PRIVATE cxx_std_23)
-target_link_libraries(SolPet PRIVATE SFML::Graphics)
+find_package(SFML 2.6 CONFIG REQUIRED COMPONENTS system window graphics audio)
+target_link_libraries(virtual-pet PRIVATE sfml-system sfml-window sfml-graphics sfml-audio)
+
+if(WIN32)
+  add_custom_command(TARGET virtual-pet POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:virtual-pet> $<TARGET_FILE_DIR:virtual-pet>
+    COMMAND_EXPAND_LISTS)
+endif()
