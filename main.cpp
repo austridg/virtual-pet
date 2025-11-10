@@ -1,21 +1,19 @@
 #include <SFML/Graphics.hpp>
 
-int main()
-{
-    sf::RenderWindow window(sf::VideoMode({200,200}), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+enum class Mood { HAPPY, SAD, MAD, TIRED, ILL };
 
-    while (window.isOpen())
-    {
-        while (const std::optional event = window.pollEvent())
-        {
-            if (event->is<sf::Event::Closed>())
-                window.close();
-        }
+class Pet {
+private:
+    sf::CircleShape petGraphic(float radius);
+    float hunger;
+    int age;
+    float energy;
+    float clean;
 
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
-}
+    float happiness;
+public:
+    Pet(float radius);
+
+    float getHunger() const;
+};
+
