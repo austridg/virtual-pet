@@ -1,7 +1,7 @@
 #include "Pet.h"
 
-Pet::Pet(float radius, Animal a)
-    : petGraphic(radius), animal(a), level(1) {}
+Pet::Pet(int radius, Animal a)
+    : petGraphic(radius), animal(a), level(1), animation(Animation::HAPPY_ANIMATE), activity(Activity::IDLE) {}
 
 // getters
 sf::CircleShape Pet::getPetGraphic() const { return petGraphic; }
@@ -12,14 +12,27 @@ int Pet::getExp() const { return exp; }
 int Pet::getNextLevelExp() const { return nextLevelExp; }
 int Pet::getAge() const { return age; }
 
-float Pet::getHunger() const { return hunger; }
-float Pet::getEnergy() const { return energy; }
-float Pet::getCleanliness() const { return cleanliness; }
-float Pet::getAttention() const { return attention; }
+int Pet::getHunger() const { return hunger; }
+int Pet::getEnergy() const { return energy; }
+int Pet::getHygiene() const { return hygiene; }
+int Pet::getAttention() const { return attention; }
 
-float Pet::getMoodBar() const { return moodBar; }
+int Pet::getMoodBar() const { return moodBar; }
 
 // setters
 void Pet::setGraphicMood(sf::Color color) {
     petGraphic.setFillColor(color);
 }
+
+// increment stats
+void Pet::feed() {
+    animation = Animation::EAT_ANIMATE;
+
+    hunger += 5;
+    if(hunger > 100) { hunger = 100; }
+}
+
+void Pet::sleep() {
+    animation = Animation::SLEEP_ANIMATE;
+}
+
