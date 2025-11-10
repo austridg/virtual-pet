@@ -3,6 +3,8 @@
 Pet::Pet(float radius, Animal a)
     : petGraphic(radius), animal(a), level(1) {}
 
+// getters
+sf::CircleShape Pet::getPetGraphic() const { return petGraphic; }
 Animal Pet::getAnimal() const { return animal; }
 Mood Pet::getMood() const { return mood; }
 int Pet::getLevel() const { return level; }
@@ -16,3 +18,8 @@ float Pet::getCleanliness() const { return cleanliness; }
 float Pet::getAttention() const { return attention; }
 
 float Pet::getMoodBar() const { return moodBar; }
+
+// setters
+void Pet::setGraphicMood(sf::Color color) {
+    petGraphic.setFillColor(color);
+}

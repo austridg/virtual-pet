@@ -23,6 +23,8 @@ private:
 public:
     Pet(float radius, Animal a);
 
+    // getters
+    sf::CircleShape getPetGraphic() const;
     Animal getAnimal() const;
     Mood getMood() const;
     int getLevel() const;
@@ -36,5 +38,7 @@ public:
     float getAttention() const;
 
     float getMoodBar() const;
-};
 
+    // setters
+    void setGraphicMood(sf::Color color);
+};

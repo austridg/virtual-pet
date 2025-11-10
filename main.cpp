@@ -1,19 +1,21 @@
-#include <SFML/Graphics.hpp>
+#include "Pet.h"
 
-enum class Mood { HAPPY, SAD, MAD, TIRED, ILL };
+int main()
+{
+    sf::RenderWindow window(sf::VideoMode({200, 200}), "Window");
+    Pet pet(100,Animal::CAT);
+    pet.setGraphicMood(sf::Color::Blue);
 
-class Pet {
-private:
-    sf::CircleShape petGraphic(float radius);
-    float hunger;
-    int age;
-    float energy;
-    float clean;
+    while (window.isOpen())
+    {
+        while (const std::optional event = window.pollEvent())
+        {
+            if (event->is<sf::Event::Closed>())
+                window.close();
+        }
 
-    float happiness;
-public:
-    Pet(float radius);
-
-    float getHunger() const;
-};
-
+        window.clear();
+        window.draw(pet.getPetGraphic());
+        window.display();
+    }
+}
