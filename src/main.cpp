@@ -1,10 +1,24 @@
-#include "Pet.h"
+#include "Dog.h"
+#include "Cat.h"
+#include <iostream>
+#include <SFML/System/Clock.hpp>
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode({200, 200}), "Window");
-    Pet pet(100,Animal::CAT);
-    pet.setGraphicMood(sf::Color::Blue);
+
+    sf::Clock clock;
+
+    clock.start();
+
+    clock.stop();
+
+    Dog doggo;
+    doggo.setGraphic();
+
+    doggo.setMood(Mood::MAD);
+
+    doggo.setGraphic();
 
     while (window.isOpen())
     {
@@ -15,7 +29,7 @@ int main()
         }
 
         window.clear();
-        window.draw(pet.getPetGraphic());
+        window.draw(doggo.getPetGraphic());
         window.display();
     }
 }

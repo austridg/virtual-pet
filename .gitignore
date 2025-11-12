@@ -1,5 +1,6 @@
 *.exe
 *.dll
+/sfml-*.dll
 *.pdb
 *.o
 /build/

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
 
@@ -5,27 +7,13 @@ enum class Mood { HAPPY, SAD, MAD, TIRED, ILL };
 
 enum class Activity { IDLE, EAT, PET, SLEEP, WAKE_UP, BATH };
 
-enum class Animation { 
-    HAPPY_ANIMATE, 
-    SAD_ANIMATE, 
-    MAD_ANIMATE, 
-    TIRED_ANIMATE, 
-    ILL_ANIMATE,
-    EAT_ANIMATE,
-    SLEEP_ANIMATE,
-    WAKE_ANIMATE,
-    PET_ANIMATE,
-    BATH_ANIMATE
-};
-enum class Animal { CAT, DOG, BIRD, HAMSTER, FOX, FISH, RABBIT};
-
 class Pet {
-private:
+protected:
     sf::CircleShape petGraphic; // temporary
-    Animal animal;
     Mood mood;
     Activity activity;
-    Animation animation;
+    sf::Color animation; // temporary type, same logic
+    sf::Clock lifetime;
     int level;
     int exp;
     int nextLevelExp;
@@ -38,12 +26,13 @@ private:
 
     int moodBar;
 public:
-    Pet(int radius, Animal a);
+    Pet();
+    virtual ~Pet() = default;
 
     // getters
     sf::CircleShape getPetGraphic() const;
-    Animal getAnimal() const;
     Mood getMood() const;
+    Activity getActivity() const;
     int getLevel() const;
     int getExp() const;
     int getNextLevelExp() const;
@@ -57,9 +46,10 @@ public:
     int getMoodBar() const;
 
     // setters
-    void setGraphicMood(sf::Color color);
+    virtual void setGraphic() = 0;
+    void setMood(Mood m);
 
-    // increment stats
+    // activity functions
     void feed();
     void sleep();
     void wake();
