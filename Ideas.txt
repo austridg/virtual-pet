@@ -16,3 +16,14 @@ DarkvoidDev: mini-game laptop prop
 DoggoWing21: SE for certain moods
 
 SE for certain actions
+
+HAPPY_ANIMATE, 
+    SAD_ANIMATE, 
+    MAD_ANIMATE, 
+    TIRED_ANIMATE, 
+    ILL_ANIMATE,
+    EAT_ANIMATE,
+    SLEEP_ANIMATE,
+    WAKE_ANIMATE,
+    PET_ANIMATE,
+    BATH_ANIMATE

@@ -1,0 +1,29 @@
+{
+  "version": 5,
+  "configurePresets": [
+    {
+      "name": "win-vs2022",
+      "displayName": "Windows (VS2022 x64, vcpkg)",
+      "generator": "Visual Studio 17 2022",
+      "architecture": { "value": "x64" },
+      "binaryDir": "${sourceDir}/build/win-vs2022",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+      }
+    },
+    {
+      "name": "win-ninja",
+      "displayName": "Windows (Ninja, vcpkg)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/win-ninja",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "win-vs2022", "configurePreset": "win-vs2022" },
+    { "name": "win-ninja",  "configurePreset": "win-ninja"  }
+  ]
+}

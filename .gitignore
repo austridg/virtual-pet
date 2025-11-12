@@ -1,4 +1,8 @@
-*.o
 *.exe
 *.dll
-build
+/sfml-*.dll
+*.pdb
+*.o
+/build/
+CMakeFiles/
+CMakeCache.txt
