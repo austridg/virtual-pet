@@ -25,6 +25,10 @@ protected:
     int attention;
 
     int moodBar;
+
+    // DEBUG TEXT FOR DISPLAYING STATS
+    sf::Font debugFont;
+    sf::Text debugText;
 public:
     Pet();
     virtual ~Pet() = default;
@@ -67,4 +71,9 @@ public:
     void handleActivity(float dt);
     void handleMood(float dt);
     void update(float dt);
+    void draw(sf::RenderWindow &window);
+
+    // DEBUG TEXT UPDATE
+    void updateDebugText();
+
 };

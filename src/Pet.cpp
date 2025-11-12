@@ -3,6 +3,13 @@
 Pet::Pet()
     : level(1), mood(Mood::HAPPY), activity(Activity::IDLE) {
         lifetime.start();
+
+        debugFont.loadFromFile("assets/fonts/arial.ttf");
+
+        debugText.setFont(debugFont);
+        debugText.setCharacterSize(12);
+        debugText.setFillColor(sf::Color::White);
+        debugText.setPosition(10.f, 10.f);
     }
 
 // getters
@@ -71,4 +78,24 @@ void Pet::update(float dt) {
 
     // set graphic
 
+    // update debug text
+
+}
+
+void Pet::draw(sf::RenderWindow &window) {
+    window.draw(petGraphic);
+    window.draw(debugText);
+}
+
+// DEBUG TEXT UPDATE
+void Pet::updateDebugText() {
+    debugText.setString(
+        "Level: " + std::to_string(level) + "\n" +
+        "Exp: " + std::to_string(exp) + "/" + std::to_string(nextLevelExp) + "\n" +
+        "Age: " + std::to_string(age) + "\n" +
+        "Hunger: " + std::to_string(hunger) + "\n" +
+        "Energy: " + std::to_string(energy) + "\n" +
+        "Hygiene: " + std::to_string(hygiene) + "\n" +
+        "Attention: " + std::to_string(attention) + "\n" +
+    );
 }
