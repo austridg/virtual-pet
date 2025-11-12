@@ -28,6 +28,10 @@ int main()
                 window.close();
         }
 
+        float deltaTime = clock.restart().asSeconds(); // delta time
+
+        doggo.setGraphic(deltaTime);
+
         window.clear();
         window.draw(doggo.getPetGraphic());
         window.display();

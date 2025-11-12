@@ -63,4 +63,8 @@ public:
     void decayAttention();
 
     // TODO - animation functions
+
+    void handleActivity(float dt);
+    void handleMood(float dt);
+    void update(float dt);
 };

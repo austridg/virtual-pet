@@ -46,6 +46,29 @@ void Pet::feed() {
     setGraphic();
 }
 
-void Pet::sleep() {
+void Pet::handleActivity(float dt) {
+
+    // check and incremenet activity time, if reaches limit, reset to IDLE activity
+    // requires 2 new varaibles for Pet (activityTime,activityDuration)
+
 }
 
+void Pet::handleMood(float dt) {
+
+    // check for mood changes every 1 second (or something)
+    
+    // update mood accoridingly based on current stats
+
+}
+
+void Pet::update(float dt) {
+
+    // track idle time
+
+    // decay stats over time
+
+    // handle activity and handle mood
+
+    // set graphic
+
+}
