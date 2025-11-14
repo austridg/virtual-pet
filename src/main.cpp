@@ -9,16 +9,13 @@ int main()
 
     sf::Clock clock;
 
-    clock.start();
+    float showDebug;
 
-    clock.stop();
+    clock.start();
 
     Dog doggo;
     doggo.setGraphic();
-
-    doggo.setMood(Mood::MAD);
-
-    doggo.setGraphic();
+    doggo.debugText();
 
     while (window.isOpen())
     {
@@ -30,10 +27,12 @@ int main()
 
         float deltaTime = clock.restart().asSeconds(); // delta time
 
-        doggo.setGraphic(deltaTime);
+        doggo.update(deltaTime);
+        if(showDebug >= 5.f) { doggo.debugText(); showDebug = 0.f; }
+        showDebug += deltaTime;
 
         window.clear();
-        window.draw(doggo.getPetGraphic());
+        doggo.draw(window);
         window.display();
     }
 }

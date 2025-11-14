@@ -13,7 +13,6 @@ protected:
     Mood mood;
     Activity activity;
     sf::Color animation; // temporary type, same logic
-    sf::Clock lifetime;
     int level;
     int exp;
     int nextLevelExp;
@@ -24,11 +23,10 @@ protected:
     int hygiene;
     int attention;
 
-    int moodBar;
-
-    // DEBUG TEXT FOR DISPLAYING STATS
-    sf::Font debugFont;
-    sf::Text debugText;
+    float activityTime;
+    float activityDuration;
+    float idleTime;
+    float moodUpdate;
 public:
     Pet();
     virtual ~Pet() = default;
@@ -46,8 +44,6 @@ public:
     int getEnergy() const;
     int getHygiene() const;
     int getAttention() const;
-
-    int getMoodBar() const;
 
     // setters
     virtual void setGraphic() = 0;
@@ -74,6 +70,6 @@ public:
     void draw(sf::RenderWindow &window);
 
     // DEBUG TEXT UPDATE
-    void updateDebugText();
+    void debugText();
 
 };
