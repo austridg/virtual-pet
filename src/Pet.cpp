@@ -1,5 +1,6 @@
 #include "Pet.h"
 #include <iostream>
+#include <map>
 
 Pet::Pet()
     : level(1), exp(0), age(0), hunger(100.f), energy(100.f), hygiene(100.f), attention(100.f), mood(Mood::HAPPY), activity(Activity::IDLE), activityDuration(5.f) {}
@@ -56,38 +57,54 @@ void Pet::handleActivity(float dt) {
 
 void Pet::handleMood(float dt) {
 
-    // OMG - REFACTOR THIS IS SO BAD
-    if (moodUpdate >= 1.f) {
-        int happy{};
-        int sad{};
-        int mad{};
-        int tired{};
-        int ill{};
-
-        if (attention >= 10.f && attention < 20.f) { sad += 2; mad += 1; }
-        else if (attention < 10.f) { sad += 3; mad += 2; }
-        else { happy += 1; }
-
-        if (hunger >= 15.f && hunger < 20.f) { mad += 2; ill += 1; }
-        else if (hunger < 15.f) { mad += 1; ill += 3; }
-        else { happy += 1; }
-
-        if (energy >= 10.f && energy < 20.f) { tired += 5; }
-        else if (energy < 10.f) { tired += 10; }
-        else { happy += 1; }
-
-        if (hygiene >= 15.f && hygiene < 20.f) { ill += 2; }
-        else if (hygiene < 15.f) { ill += 4; }
-        else { happy += 1; }
-
-        if (happy > sad + mad + tired + ill) { mood = Mood::HAPPY; }
-        else if (sad > happy + tired + ill + mad) { mood = Mood::SAD; }
-        else if (mad > happy + sad + tired + ill) { mood = Mood::MAD; }
-        else if (tired > happy + sad + mad + ill) { mood = Mood::TIRED; }
-        else { mood = Mood::ILL; }
+    if (moodUpdate < 1.f) {
+        moodUpdate += dt;
+        return;
     }
 
-    moodUpdate += dt;
+    moodUpdate = 0;
+
+    // map of moods
+    std::map <Mood, int> score {
+        {Mood::HAPPY,0},
+        {Mood::MAD,0},
+        {Mood::SAD,0},
+        {Mood::TIRED,0},
+        {Mood::ILL,0}
+    };
+
+    // attention
+    if (attention >= 20.f) { score[Mood::HAPPY] += 1; }
+    else if (attention >= 10.f) { score[Mood::SAD] += 2; score[Mood::MAD] += 1; }
+    else { score[Mood::SAD] += 3; score[Mood::MAD] += 2; }
+
+    // hunger
+    if (hunger >= 20.f) { score[Mood::HAPPY] += 1; }
+    else if (hunger >= 15.f) { score[Mood::MAD] += 2; score[Mood::ILL] += 1; }
+    else { score[Mood::MAD] += 1; score[Mood::ILL] += 3; }
+
+    // energy
+    if (energy >= 20.f) { score[Mood::HAPPY] += 1; }
+    else if (energy >= 10.f) { score[Mood::TIRED] += 5; }
+    else { score[Mood::TIRED] += 10; }
+
+    // hygiene
+    if (hygiene >= 20.f) { score[Mood::HAPPY] += 1; }
+    else if (hygiene >= 15.f) { score[Mood::ILL] += 2; }
+    else { score[Mood::ILL] += 4; }
+
+    Mood chosenMood = Mood::HAPPY;
+    int bestScore = -1;
+
+    // find mood with highest score
+    for (auto& x : score) {
+        if(x.second > bestScore) {
+            bestScore = x.second;
+            chosenMood = x.first;
+        }
+    }
+
+    mood = chosenMood;
 
 }
 
